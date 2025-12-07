@@ -23,11 +23,12 @@ O sistema oferece as seguintes opções:
 3.  **Pesquisar manifestação por código**: Busca os detalhes de uma manifestação específica pelo seu ID.
 4.  **Editar manifestação**: Permite alterar os dados (nome, tipo, descrição) de uma manifestação existente.
 5.  **Excluir manifestação**: Remove uma manifestação do sistema.
+6.  **Exibir quantidade de manifestações**: Exibe o total de registros na ouvidoria.
 
 ## 🛠️ Como Executar
 
 1.  Certifique-se de ter o Python e a biblioteca `mysql-connector-python` instalados.
-2.  Configure os dados de conexão com o banco de dados no arquivo `menu.py` (ou `db.md` se aplicável).
+2.  Configure os dados de conexão com o banco de dados no arquivo `menu.py`.
 3.  Execute o arquivo principal:
 
 ```bash
@@ -38,7 +39,7 @@ python menu.py
 
 *   Python 3.x
 *   Servidor MySQL acessível
-*   Tabela `ouvidoria` criada no banco de dados (ver script SQL em `db.md` ou usar `criar_tabela.py` para inicialização).
+*   Tabela `ouvidoria` criada no banco de dados (ver script SQL em `db.sql` ou usar `criar_tabela.py` para inicialização).
 
 ---
 *Projeto acadêmico.*

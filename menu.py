@@ -3,8 +3,7 @@ from ouvidoria import *
 
 # Inicializa a opção com um valor diferente de saída
 opcao = -1
-# Cria a conexão com o banco de dados 'ouvidoria'
-# Caso o nome do banco seja diferente, altere o último parâmetro
+# Cria a conexão com o banco de dados
 conexao = criarConexao('143.110.133.149', 'root', 'aslkjhdlru', 'ouvidoria')
 
 # Loop principal do menu
@@ -22,7 +21,7 @@ while opcao != 7:
         opcao = int(input("Digite a sua opção: "))
     except ValueError:
         print("Por favor, digite um número válido.")
-        continue
+        opcao = -1
 
     # Opção 1: Listar
     if opcao == 1:
@@ -33,31 +32,13 @@ while opcao != 7:
         else:
             print("\n--- Lista de Manifestações ---")
             for item in lista:
-                # O item é uma tupla, ex: (codigo, nome, tipo, descricao)
-                # Ajuste os índices conforme a ordem das colunas no seu banco
-                print(f"Código: {item[0]} | Nome: {item[1]} | Tipo: {item[2]}")
-                print(f"Descrição: {item[3]}")
-                print("-" * 30)
+                exibirManifestacao(item)
 
     # Opção 2: Adicionar
     elif opcao == 2:
         print("\n--- Nova Manifestação ---")
         nome = input("Digite o nome do requerente: ")
-        print("\nSelecione o tipo da manifestação:")
-        print("1) Reclamação")
-        print("2) Elogio")
-        print("3) Sugestão")
-        opcao_tipo = input("Digite o número da opção do tipo: ")
-
-        if opcao_tipo == '1':
-            tipo = 'Reclamação'
-        elif opcao_tipo == '2':
-            tipo = 'Elogio'
-        elif opcao_tipo == '3':
-            tipo = 'Sugestão'
-        else:
-            tipo = 'Outros'
-            print("Opção inválida. Definido como 'Outros'.")
+        tipo = lerTipoManifestacao("Selecione o tipo da manifestação:")
         descricao = input("Digite a descrição da manifestação: ")
         
         novo_id = inserirManifestacao(conexao, nome, tipo, descricao)
@@ -73,10 +54,7 @@ while opcao != 7:
             
             if item:
                 print("\n--- Detalhes da Manifestação ---")
-                print(f"Código: {item[0]}")
-                print(f"Nome: {item[1]}")
-                print(f"Tipo: {item[2]}")
-                print(f"Descrição: {item[3]}")
+                exibirManifestacao(item)
             else:
                 print("Manifestação não encontrada para o código informado.")
         except ValueError:
@@ -92,22 +70,7 @@ while opcao != 7:
             if item:
                 print(f"Editando manifestação de: {item[1]}")
                 novo_nome = input("Digite o novo nome: ")
-                print("\nSelecione o novo tipo da manifestação:")
-                print("1) Reclamação")
-                print("2) Elogio")
-                print("3) Sugestão")
-                opcao_tipo = input("Digite o número da opção do novo tipo: ")
-
-                if opcao_tipo == '1':
-                    novo_tipo = 'Reclamação'
-                elif opcao_tipo == '2':
-                    novo_tipo = 'Elogio'
-                elif opcao_tipo == '3':
-                    novo_tipo = 'Sugestão'
-                else:
-                    novo_tipo = 'Outros'
-                    print("Opção inválida. Definido como 'Outros'.")
-
+                novo_tipo = lerTipoManifestacao("Selecione o novo tipo da manifestação:")
                 nova_descricao = input("Digite a nova descrição: ")
                 
                 linhas = atualizarManifestacao(conexao, codigo, novo_nome, novo_tipo, nova_descricao)
@@ -125,7 +88,6 @@ while opcao != 7:
     elif opcao == 5:
         try:
             codigo = int(input("Digite o código da manifestação que deseja excluir: "))
-            # Podemos verificar se existe antes ou tentar excluir direto
             linhas = excluirManifestacao(conexao, codigo)
             
             if linhas > 0:
