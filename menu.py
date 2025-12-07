@@ -8,14 +8,15 @@ opcao = -1
 conexao = criarConexao('143.110.133.149', 'root', 'aslkjhdlru', 'ouvidoria')
 
 # Loop principal do menu
-while opcao != 6:
+while opcao != 7:
     print("\n--- Sistema de Ouvidoria ---")
     print("1) Listar manifestações")
     print("2) Adicionar nova manifestação")
     print("3) Pesquisar manifestação por código")
     print("4) Editar manifestação")
     print("5) Excluir manifestação")
-    print("6) Sair")
+    print("6) Exibir quantidade de manifestações")
+    print("7) Sair")
     
     try:
         opcao = int(input("Digite a sua opção: "))
@@ -106,6 +107,7 @@ while opcao != 6:
                 else:
                     novo_tipo = 'Outros'
                     print("Opção inválida. Definido como 'Outros'.")
+
                 nova_descricao = input("Digite a nova descrição: ")
                 
                 linhas = atualizarManifestacao(conexao, codigo, novo_nome, novo_tipo, nova_descricao)
@@ -133,8 +135,13 @@ while opcao != 6:
         except ValueError:
             print("O código deve ser um número inteiro.")
 
-    # Opção 6: Sair
+    # Opção 6: Contar Quantidade
     elif opcao == 6:
+        quantidade = contarManifestacoes(conexao)
+        print(f"\nQuantidade total de manifestações: {quantidade}")
+
+    # Opção 7: Sair
+    elif opcao == 7:
         print("Saindo do sistema...")
     
     else:

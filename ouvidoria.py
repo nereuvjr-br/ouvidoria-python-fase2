@@ -54,3 +54,16 @@ def atualizarManifestacao(conexao, codigo, nome, tipo, descricao):
     # Chama a função de atualização e retorna a quantidade de linhas afetadas
     linhas_afetadas = atualizarBancoDados(conexao, consulta, dados)
     return linhas_afetadas
+
+# Função para contar a quantidade de manifestações cadastradas
+def contarManifestacoes(conexao):
+    # Cria a consulta SQL para contar os registros
+    consulta = "select count(*) from ouvidoria"
+    # Chama a função de listar que retorna uma lista de tuplas
+    resultado = listarBancoDados(conexao, consulta)
+    
+    if len(resultado) > 0:
+        # Retorna o primeiro elemento da primeira tupla (o count)
+        return resultado[0][0]
+    else:
+        return 0
