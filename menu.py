@@ -1,5 +1,4 @@
 from ouvidoria import * #Importa as funções do arquivo ouvidoria.py
-from operacoesbd import *
 
 
 # Inicializa a opção com um valor diferente de saída
