@@ -1,0 +1,10 @@
+﻿# Ignora tudo
+*
+
+# Arquivos do projeto para não ignorar
+!menu.py
+!ouvidoria.py
+!operacoesbd.py
+!README.md
+!db.sql
+!.gitignore
