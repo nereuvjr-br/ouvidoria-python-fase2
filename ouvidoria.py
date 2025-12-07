@@ -87,6 +87,6 @@ def lerTipoManifestacao(mensagem="Selecione o tipo da manifestação:"):
 # Função auxiliar para exibir os dados de uma manifestação de forma formatada
 # Recebe uma tupla 'item' vinda do banco de dados (codigo, nome, tipo, descricao)
 def exibirManifestacao(item):
-    print(f"Código: {item[0]} | Nome: {item[1]} | Tipo: {item[2]}")
-    print(f"Descrição: {item[3]}")
+    print("Código: " + str(item[0]) + " | Nome: " + item[1] + " | Tipo: " + item[2])
+    print("Descrição: " + item[3])
     print("------------------------------")

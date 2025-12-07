@@ -18,12 +18,7 @@ while opcao != 7:
     print("6) Exibir quantidade de manifestações")
     print("7) Sair")
     
-    entrada_opcao = input("Digite a sua opção: ")
-    if entrada_opcao.isdigit():
-        opcao = int(entrada_opcao)
-    else:
-        print("Por favor, digite um número válido.")
-        opcao = -1
+    opcao = int(input("Digite a sua opção: "))
 
     # Opção 1: Listar
     if opcao == 1:
@@ -46,66 +41,54 @@ while opcao != 7:
         novo_id = inserirManifestacao(conexao, nome, tipo, descricao)
         
         if novo_id:
-            print(f"Manifestação inserida com sucesso! Código gerado: {novo_id}")
+            print("Manifestação inserida com sucesso! Código gerado: ", novo_id)
 
     # Opção 3: Pesquisar
     elif opcao == 3:
-        entrada_codigo = input("Digite o código da manifestação: ")
-        if entrada_codigo.isdigit():
-            codigo = int(entrada_codigo)
-            item = pesquisarManifestacaoPorCodigo(conexao, codigo)
-            
-            if item:
-                print("\n--- Detalhes da Manifestação ---")
-                exibirManifestacao(item)
-            else:
-                print("Manifestação não encontrada para o código informado.")
+        codigo = int(input("Digite o código da manifestação: "))
+        item = pesquisarManifestacaoPorCodigo(conexao, codigo)
+        
+        if item:
+            print("\n--- Detalhes da Manifestação ---")
+            exibirManifestacao(item)
         else:
-            print("O código deve ser um número inteiro.")
+            print("Manifestação não encontrada para o código informado.")
 
     # Opção 4: Editar
     elif opcao == 4:
-        entrada_codigo = input("Digite o código da manifestação que deseja editar: ")
-        if entrada_codigo.isdigit():
-            codigo = int(entrada_codigo)
-            # Primeiro verificamos se existe
-            item = pesquisarManifestacaoPorCodigo(conexao, codigo)
+        codigo = int(input("Digite o código da manifestação que deseja editar: "))
+        # Primeiro verificamos se existe
+        item = pesquisarManifestacaoPorCodigo(conexao, codigo)
+        
+        if item:
+            print("Editando manifestação de: " + item[1])
+            novo_nome = input("Digite o novo nome: ")
+            novo_tipo = lerTipoManifestacao("Selecione o novo tipo da manifestação:")
+            nova_descricao = input("Digite a nova descrição: ")
             
-            if item:
-                print(f"Editando manifestação de: {item[1]}")
-                novo_nome = input("Digite o novo nome: ")
-                novo_tipo = lerTipoManifestacao("Selecione o novo tipo da manifestação:")
-                nova_descricao = input("Digite a nova descrição: ")
-                
-                linhas = atualizarManifestacao(conexao, codigo, novo_nome, novo_tipo, nova_descricao)
-                
-                if linhas > 0:
-                    print("Manifestação atualizada com sucesso!")
-                else:
-                    print("Erro ao atualizar a manifestação.")
+            linhas = atualizarManifestacao(conexao, codigo, novo_nome, novo_tipo, nova_descricao)
+            
+            if linhas > 0:
+                print("Manifestação atualizada com sucesso!")
             else:
-                print("Manifestação não encontrada.")
+                print("Erro ao atualizar a manifestação.")
         else:
-            print("O código deve ser um número inteiro.")
+            print("Manifestação não encontrada.")
 
     # Opção 5: Excluir
     elif opcao == 5:
-        entrada_codigo = input("Digite o código da manifestação que deseja excluir: ")
-        if entrada_codigo.isdigit():
-            codigo = int(entrada_codigo)
-            linhas = excluirManifestacao(conexao, codigo)
-            
-            if linhas > 0:
-                print("Manifestação excluída com sucesso!")
-            else:
-                print("Nenhuma manifestação foi excluída (verifique o código).")
+        codigo = int(input("Digite o código da manifestação que deseja excluir: "))
+        linhas = excluirManifestacao(conexao, codigo)
+        
+        if linhas > 0:
+            print("Manifestação excluída com sucesso!")
         else:
-            print("O código deve ser um número inteiro.")
+            print("Nenhuma manifestação foi excluída (verifique o código).")
 
     # Opção 6: Contar Quantidade
     elif opcao == 6:
         quantidade = contarManifestacoes(conexao)
-        print(f"\nQuantidade total de manifestações: {quantidade}")
+        print("Quantidade total de manifestações: ", quantidade)
 
     # Opção 7: Sair
     elif opcao == 7:
