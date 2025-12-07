@@ -3,7 +3,7 @@ from operacoesbd import *
 # --- Métodos de Banco de Dados ---
 
 # Função responsável por listar todas as manifestações existentes no banco de dados
-# Retorna uma lista de tuplas com os dados recuperados
+# Retorna uma lista de registros com os dados recuperados
 def listarManifestacoes(conexao):
     consulta = "select * from ouvidoria"
     # Chama a função genérica que executa o SELECT sem parâmetros
@@ -11,7 +11,7 @@ def listarManifestacoes(conexao):
     return resultado
 
 # Função responsável por buscar uma única manifestação pelo seu código (ID)
-# Retorna a tupla com os dados da manifestação ou None se não encontrar
+# Retorna o registro com os dados da manifestação ou None se não encontrar
 def pesquisarManifestacaoPorCodigo(conexao, codigo):
     consulta = "select * from ouvidoria where codigo = %s"
     dados = [codigo]
@@ -57,9 +57,9 @@ def contarManifestacoes(conexao):
     consulta = "select count(*) from ouvidoria"
     resultado = listarBancoDados(conexao, consulta)
     
-    # O resultado vem como uma lista de tuplas, ex: [(5,)]
+    # O resultado vem como uma lista de registros, ex: [(5,)]
     if len(resultado) > 0:
-        return resultado[0][0] # Pega o primeiro elemento da primeira tupla
+        return resultado[0][0] # Pega o primeiro elemento do primeiro registro
     else:
         return 0
 
@@ -85,7 +85,7 @@ def lerTipoManifestacao(mensagem="Selecione o tipo da manifestação:"):
         return 'Outros'
 
 # Função auxiliar para exibir os dados de uma manifestação de forma formatada
-# Recebe uma tupla 'item' vinda do banco de dados (codigo, nome, tipo, descricao)
+# Recebe um registro 'item' vindo do banco de dados (codigo, nome, tipo, descricao)
 def exibirManifestacao(item):
     print("Código: " + str(item[0]) + " | Nome: " + item[1] + " | Tipo: " + item[2])
     print("Descrição: " + item[3])
