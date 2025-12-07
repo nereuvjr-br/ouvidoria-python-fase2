@@ -1,5 +1,6 @@
+from ouvidoria import * #Importa as funções do arquivo ouvidoria.py
 from operacoesbd import *
-from ouvidoria import *
+
 
 # Inicializa a opção com um valor diferente de saída
 opcao = -1
@@ -17,9 +18,10 @@ while opcao != 7:
     print("6) Exibir quantidade de manifestações")
     print("7) Sair")
     
-    try:
-        opcao = int(input("Digite a sua opção: "))
-    except ValueError:
+    entrada_opcao = input("Digite a sua opção: ")
+    if entrada_opcao.isdigit():
+        opcao = int(entrada_opcao)
+    else:
         print("Por favor, digite um número válido.")
         opcao = -1
 
@@ -48,8 +50,9 @@ while opcao != 7:
 
     # Opção 3: Pesquisar
     elif opcao == 3:
-        try:
-            codigo = int(input("Digite o código da manifestação: "))
+        entrada_codigo = input("Digite o código da manifestação: ")
+        if entrada_codigo.isdigit():
+            codigo = int(entrada_codigo)
             item = pesquisarManifestacaoPorCodigo(conexao, codigo)
             
             if item:
@@ -57,13 +60,14 @@ while opcao != 7:
                 exibirManifestacao(item)
             else:
                 print("Manifestação não encontrada para o código informado.")
-        except ValueError:
+        else:
             print("O código deve ser um número inteiro.")
 
     # Opção 4: Editar
     elif opcao == 4:
-        try:
-            codigo = int(input("Digite o código da manifestação que deseja editar: "))
+        entrada_codigo = input("Digite o código da manifestação que deseja editar: ")
+        if entrada_codigo.isdigit():
+            codigo = int(entrada_codigo)
             # Primeiro verificamos se existe
             item = pesquisarManifestacaoPorCodigo(conexao, codigo)
             
@@ -81,20 +85,21 @@ while opcao != 7:
                     print("Erro ao atualizar a manifestação.")
             else:
                 print("Manifestação não encontrada.")
-        except ValueError:
+        else:
             print("O código deve ser um número inteiro.")
 
     # Opção 5: Excluir
     elif opcao == 5:
-        try:
-            codigo = int(input("Digite o código da manifestação que deseja excluir: "))
+        entrada_codigo = input("Digite o código da manifestação que deseja excluir: ")
+        if entrada_codigo.isdigit():
+            codigo = int(entrada_codigo)
             linhas = excluirManifestacao(conexao, codigo)
             
             if linhas > 0:
                 print("Manifestação excluída com sucesso!")
             else:
                 print("Nenhuma manifestação foi excluída (verifique o código).")
-        except ValueError:
+        else:
             print("O código deve ser um número inteiro.")
 
     # Opção 6: Contar Quantidade

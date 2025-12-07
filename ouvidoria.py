@@ -1,4 +1,4 @@
-from operacoesbd import *
+#from operacoesbd import *
 
 # --- Métodos de Banco de Dados ---
 
